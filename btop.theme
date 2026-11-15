@@ -1,0 +1,93 @@
+# Jungle for btop: graphs climb from the river, through the canopy, into the sun.
+
+# Main background, empty for terminal default
+theme[main_bg]="#0e1d12"
+
+# Main text color
+theme[main_fg]="#dbe2c7"
+
+# Title color for boxes
+theme[title]="#dbe2c7"
+
+# Highlight color for keyboard shortcuts
+theme[hi_fg]="#85d867"
+
+# Background and foreground of the selected item in the processes box
+theme[selected_bg]="#223e2a"
+theme[selected_fg]="#efcc5d"
+
+# Color of inactive/disabled text
+theme[inactive_fg]="#617c68"
+
+# Text appearing on top of graphs, i.e uptime and network graph scaling
+theme[graph_text]="#b8c5a9"
+
+# Background color of the percentage meters
+theme[meter_bg]="#17281b"
+
+# Misc colors for processes box including mini cpu graphs and details
+theme[proc_misc]="#88e6d1"
+
+# CPU, Memory, Network, Proc box outline colors
+theme[cpu_box]="#5fd2ba"
+theme[mem_box]="#85d867"
+theme[net_box]="#5cb3e9"
+theme[proc_box]="#efcc5d"
+
+# Box divider line and small boxes line color
+theme[div_line]="#2c4a35"
+
+# Temperature graph (canopy -> gold -> poison-dart red)
+theme[temp_start]="#85d867"
+theme[temp_mid]="#efcc5d"
+theme[temp_end]="#f06c61"
+
+# CPU graph (river -> canopy -> sun)
+theme[cpu_start]="#5fd2ba"
+theme[cpu_mid]="#85d867"
+theme[cpu_end]="#efcc5d"
+
+# Mem/Disk free meter
+theme[free_start]="#2c4a35"
+theme[free_mid]="#617c68"
+theme[free_end]="#85d867"
+
+# Mem/Disk cached meter
+theme[cached_start]="#5cb3e9"
+theme[cached_mid]="#5fd2ba"
+theme[cached_end]="#88e6d1"
+
+# Mem/Disk available meter
+theme[available_start]="#85d867"
+theme[available_mid]="#a3ed8a"
+theme[available_end]="#efcc5d"
+
+# Mem/Disk used meter
+theme[used_start]="#5fd2ba"
+theme[used_mid]="#efcc5d"
+theme[used_end]="#f89b4c"
+
+# Download graph (morpho blues)
+theme[download_start]="#5cb3e9"
+theme[download_mid]="#5fd2ba"
+theme[download_end]="#88e6d1"
+
+# Upload graph (orchid -> toucan -> gold)
+theme[upload_start]="#df86c7"
+theme[upload_mid]="#f89b4c"
+theme[upload_end]="#efcc5d"
+
+# Process box gradient for threads, mem and cpu usage
+theme[process_start]="#5fd2ba"
+theme[process_mid]="#85d867"
+theme[process_end]="#efcc5d"
+
+# Graph gradient colors (shade -> sunlit leaf)
+theme[gradient_color_0]="#0e1d12"
+theme[gradient_color_1]="#17281b"
+theme[gradient_color_2]="#223e2a"
+theme[gradient_color_3]="#617c68"
+theme[gradient_color_4]="#768f7c"
+theme[gradient_color_5]="#b8c5a9"
+theme[gradient_color_6]="#dbe2c7"
+theme[gradient_color_7]="#f3f5e5"

@@ -1,0 +1,207 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<!-- Desktop mock-up for preview.png. extras.mjs injects the palette (from
+     colors.toml) and the Canopy wallpaper, then screenshots it at 2x. -->
+<script>/*PALETTE*/</script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1280px; height: 720px; overflow: hidden; }
+  body {
+    font-family: 'JetBrainsMono Nerd Font', 'JetBrains Mono', monospace;
+    font-size: 9.6px; line-height: 13px;
+    background: #000 url('WALLPAPER_DATA') center / cover no-repeat;
+  }
+  .bar {
+    position: absolute; left: 0; top: 0; right: 0; height: 26px;
+    display: flex; align-items: center; justify-content: space-between; padding: 0 12px;
+    font-size: 11px;
+  }
+  .bar .ws span { margin-right: 11px; }
+  .bar .right span { margin-left: 13px; font-size: 12px; }
+  .win { position: absolute; border: 2px solid; overflow: hidden; }
+  .win.active { border: 2px solid transparent; }
+  .term { padding: 7px 9px; white-space: pre; height: 100%; }
+  .nv { display: flex; flex-direction: column; height: 100%; }
+  .nv .main { display: flex; flex: 1; min-height: 0; }
+  .nv .tree { width: 152px; padding: 6px 0 0 8px; white-space: pre; }
+  .nv .code { flex: 1; padding-top: 6px; white-space: pre; position: relative; }
+  .nv .status { height: 15px; display: flex; align-items: center; white-space: pre; }
+  .nv .cmd { height: 13px; padding-left: 6px; }
+  .ln { display: inline-block; width: 30px; text-align: right; margin-right: 12px; }
+  .box { position: absolute; border: 1px solid; border-radius: 3px; }
+  .box .t { position: absolute; top: -8px; left: 9px; padding: 0 3px; }
+  .spark { display: flex; align-items: flex-end; height: 100%; gap: 1px; }
+  .spark i { flex: 1; display: block; }
+</style>
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<div id="wins"></div>
+<script>
+const P = window.P;
+const $ = (h) => { const d = document.createElement('div'); d.innerHTML = h; return d.firstElementChild; };
+const c = (color, text, extra = '') => `<span style="color:${P[color] || color};${extra}">${text}</span>`;
+
+// ------------------------------------------------------------------ bar
+document.getElementById('bar').style.cssText += `background:${P.background};color:${P.foreground}`;
+document.getElementById('bar').innerHTML = `
+  <div class="ws">${c('accent', '', 'margin-right:14px;font-size:13px')}${c('foreground', '1', 'font-weight:700')}${c('muted', '2')}${c('muted', '3')}${c('muted', '4')}${c('muted', '5')}</div>
+  <div>${c('foreground', 'Saturday 20:22')}</div>
+  <div class="right">${c('light_foreground', '󰓅')}${c('light_foreground', '󰂯')}${c('light_foreground', '󰤨')}${c('light_foreground', '󰕾')}${c('light_foreground', '󰁹')}</div>`;
+
+// --------------------------------------------------------------- windows
+const W = 1280, H = 720, BAR = 26, OUT = 10, IN = 10;
+const colW = (W - OUT * 2 - IN) / 2, rowH = (H - BAR - OUT * 2 - IN) / 2;
+const rect = (col, row) => ({ x: OUT + col * (colW + IN), y: BAR + OUT + row * (rowH + IN), w: colW, h: rowH });
+function win(r, html, active) {
+  const el = $(`<div class="win${active ? ' active' : ''}"></div>`);
+  Object.assign(el.style, { left: r.x + 'px', top: r.y + 'px', width: r.w + 'px', height: r.h + 'px', background: P.background, color: P.foreground });
+  if (active) {
+    el.style.background = `linear-gradient(${P.background}, ${P.background}) padding-box, linear-gradient(45deg, ${P.accent}, ${P.yellow}) border-box`;
+  } else {
+    el.style.borderColor = 'rgba(34,62,42,0.67)';
+  }
+  el.innerHTML = html;
+  document.getElementById('wins').appendChild(el);
+  return el;
+}
+
+// ---- neovim: the art generator, of course
+const kw = t => c('magenta', t), fn = t => c('blue', t), st = t => c('green', t), nu = t => c('orange', t), cm = t => c('muted', t, 'font-style:italic'), ty = t => c('yellow', t), pu = t => c('light_foreground', t), va = t => c('foreground', t), pr = t => c('cyan', t);
+const code = [
+  cm('// 1 · Canopy — light pouring through layered rainforest.'),
+  `${pu('(')}${kw('function')} ${pu('() {')}`,
+  `  ${kw('const')} ${va('J')} ${pu('=')} ${va('window')}${pu('.')}${pr('J')}${pu(';')}`,
+  `  ${kw('const')} ${va('D')} ${pu('= [')}${st("'#5d8a6c'")}${pu(',')} ${st("'#47745a'")}${pu(',')} ${st("'#315a43'")}${pu('];')}`,
+  ``,
+  `  ${va('J')}${pu('.')}${fn('canopyLayers')} ${pu('=')} ${kw('function')} ${pu('(')}${va('W')}${pu(',')} ${va('H')}${pu(',')} ${va('seed')}${pu(') {')}`,
+  `    ${kw('const')} ${va('r')} ${pu('=')} ${va('J')}${pu('.')}${fn('rng')}${pu('(')}${va('seed')}${pu(');')}`,
+  `    ${kw('const')} ${va('sun')} ${pu('= {')} ${pr('x')}${pu(':')} ${va('W')} ${pu('*')} ${nu('0.7')}${pu(',')} ${pr('y')}${pu(':')} ${pu('-')}${va('H')} ${pu('*')} ${nu('0.1')} ${pu('};')}`,
+  `    ${kw('for')} ${pu('(')}${kw('let')} ${va('i')} ${pu('=')} ${nu('0')}${pu(';')} ${va('i')} ${pu('<')} ${nu('48')}${pu(';')} ${va('i')}${pu('++) {')}`,
+  `      ${va('J')}${pu('.')}${fn('trunk')}${pu('(')}${va('x')}${pu(',')} ${va('r')}${pu('.')}${fn('range')}${pu('(')}${pu('-')}${nu('0.05')}${pu(',')} ${nu('1.05')}${pu(') *')} ${va('W')}${pu(',')} ${va('H')}${pu(', {')}`,
+  `        ${pr('color')}${pu(':')} ${va('D')}${pu('[')}${nu('1')}${pu('],')} ${pr('taper')}${pu(':')} ${nu('0.75')}${pu(',')} ${pr('seed')}${pu(':')} ${nu('100')} ${pu('+')} ${va('i')}${pu(',')}`,
+  `      ${pu('});')}`,
+  `    ${pu('}')}`,
+  `    ${cm('// god rays, then mist, then the backlit leaves')}`,
+  `    ${va('layers')}${pu('.')}${fn('push')}${pu('({')} ${pr('canvas')}${pu(':')} ${va('J')}${pu('.')}${fn('godRays')}${pu('(')}${va('W')}${pu(',')} ${va('H')}${pu(', {')}`,
+  `      ${pr('angle')}${pu(':')} ${ty('Math')}${pu('.')}${pr('PI')} ${pu('*')} ${nu('0.6')}${pu(',')} ${pr('color')}${pu(':')} ${st("'#f6eeb4'")}${pu(',')} ${pr('count')}${pu(':')} ${nu('14')}${pu(',')}`,
+  `    ${pu('}),')} ${pr('blend')}${pu(':')} ${st("'screen'")} ${pu('});')}`,
+  `    ${kw('return')} ${pu('{')} ${va('layers')}${pu(',')} ${va('sun')} ${pu('};')}`,
+  `  ${pu('};')}`,
+  `${pu('})();')}`,
+];
+const cur = 8;
+const codeHtml = code.map((l, i) => {
+  const n = i + 1;
+  const num = n === cur ? c('yellow', String(n).padStart(3), 'font-weight:700') : c('dark_foreground', String(Math.abs(n - cur)).padStart(3));
+  const bg = n === cur ? `background:${P.lighter_background};` : '';
+  return `<div style="${bg}"><span class="ln">${num}</span>${l || ' '}</div>`;
+}).join('');
+const tree = [
+  c('blue', '  omarchy-jungle-theme'),
+  `${c('muted', '│ ')}${c('blue', ' art')}`,
+  `${c('muted', '│ │ ')}${c('blue', ' lib')}`,
+  `${c('muted', '│ │ ')}${c('blue', ' scenes')}`,
+  `${c('muted', '│ │ │ ')}${c('yellow', ' canopy.js')}`,
+  `${c('muted', '│ │ │ ')}${c('yellow', ' cascade.js')}`,
+  `${c('muted', '│ │ │ ')}${c('yellow', ' morpho.js')}`,
+  `${c('muted', '│ │ │ ')}${c('yellow', ' toucan.js')}`,
+  `${c('muted', '│ │ │ ')}${c('yellow', ' watcher.js')}`,
+  `${c('muted', '│ │ ')}${c('green', ' render.mjs')}`,
+  `${c('muted', '│ ')}${c('blue', ' backgrounds')}`,
+  `${c('muted', '│ ')}${c('orange', ' colors.toml')}`,
+  `${c('muted', '│ ')}${c('foreground', ' README.md')}`,
+].map((l, i) => `<div style="${i === 4 ? `background:${P.selection};` : ''}">${l}</div>`).join('');
+win(rect(0, 0), `<div class="nv">
+  <div class="main">
+    <div class="tree" style="background:${P.dark_background}">${tree}</div>
+    <div class="code">${codeHtml}<span style="position:absolute;left:${42 + 4 * 5.77}px;top:${6 + (cur - 1) * 13}px;width:5.8px;height:13px;background:${P.bright_foreground};opacity:.85"></span></div>
+  </div>
+  <div class="status" style="background:${P.dark_background}">${c(P.background, ' NORMAL ', `background:${P.accent};font-weight:700`)}${c('accent', '  main ')}${c('light_foreground', '  art/scenes/canopy.js ')}<span style="flex:1"></span>${c('muted', 'javascript  ')}${c(P.background, ' 8:5 ', `background:${P.yellow}`)}</div>
+  <div class="cmd" style="color:${P.muted}">"canopy.js" 212L, 9861B</div>
+</div>`, true);
+
+// ---- btop
+function spark(n, seed, from, to, maxH = 1) {
+  let s = seed, out = '';
+  for (let i = 0; i < n; i++) {
+    s = (s * 9301 + 49297) % 233280;
+    const v = 0.15 + 0.55 * (s / 233280) * maxH + 0.25 * Math.sin(i / 3 + seed);
+    const h = Math.max(0.06, Math.min(1, v));
+    out += `<i style="height:${(h * 100).toFixed(0)}%;background:linear-gradient(to top, ${P[from]}, ${P[to]})"></i>`;
+  }
+  return `<div class="spark">${out}</div>`;
+}
+const meter = (label, pct, from, to) => `<div style="display:flex;align-items:center;gap:6px;margin:2px 0">${c('light_foreground', label.padEnd(9))}<div style="flex:1;height:7px;background:${P.lighter_background};border-radius:2px;overflow:hidden"><div style="width:${pct}%;height:100%;background:linear-gradient(90deg, ${P[from]}, ${P[to]})"></div></div>${c('foreground', (pct + '%').padStart(4))}</div>`;
+const procs = [
+  ['1803', 'Hyprland', 'chris', '4.1', '412M'], ['2211', 'omarchy-shell', 'chris', '2.3', '388M'], ['2876', 'nvim', 'chris', '1.2', '96M'],
+  ['3012', 'chromium', 'chris', '0.9', '1.1G'], ['3390', 'node render.mjs', 'chris', '0.8', '742M'], ['2290', 'ghostty', 'chris', '0.5', '128M'],
+  ['1022', 'pipewire', 'chris', '0.3', '24M'], ['3412', 'btop', 'chris', '0.2', '12M'],
+];
+win(rect(1, 0), `<div style="position:relative;height:100%;padding:12px 8px 8px">
+  <div class="box" style="left:6px;top:8px;right:6px;height:112px;border-color:${P.cyan}"><span class="t" style="background:${P.background}">${c('cyan', '¹cpu')} ${c('muted', 'menu')} ${c('muted', 'preset *')}</span>
+    <div style="position:absolute;left:8px;top:10px;right:190px;bottom:8px">${spark(96, 7, 'cyan', 'yellow')}</div>
+    <div style="position:absolute;right:8px;top:10px;width:172px;line-height:12.5px">${c('foreground', 'Ryzen 9 9955HX   ')}${c('yellow', '5.2 GHz')}<br>${['C0', 'C1', 'C2', 'C3', 'C4', 'C5'].map((k, i) => `${c('light_foreground', k)} ${c('green', '▮'.repeat(2 + ((i * 3) % 5)))}${c('lighter_background', '▮'.repeat(7 - ((i * 3) % 5)))} ${c('foreground', ((i * 7) % 23 + 3 + '%').padStart(4))}  ${c('muted', '48°C')}`).join('<br>')}</div>
+  </div>
+  <div class="box" style="left:6px;top:130px;width:46%;bottom:6px;border-color:${P.green}"><span class="t" style="background:${P.background}">${c('green', '²mem')}</span>
+    <div style="padding:8px 8px 0">${meter('Used', 57, 'cyan', 'orange')}${meter('Available', 43, 'green', 'yellow')}${meter('Cached', 24, 'blue', 'bright_cyan')}${meter('Free', 19, 'muted', 'green')}<div style="height:6px"></div>${meter('root', 62, 'cyan', 'orange')}${meter('home', 38, 'cyan', 'orange')}</div>
+    <div style="position:absolute;left:8px;right:8px;bottom:8px;height:38px;border-top:1px solid ${P.selection};padding-top:3px">${c('blue', '³net')} ${c('muted', 'wlan0')}<div style="height:24px">${spark(70, 3, 'blue', 'bright_cyan', 0.7)}</div></div>
+  </div>
+  <div class="box" style="left:calc(46% + 12px);top:130px;right:6px;bottom:6px;border-color:${P.yellow}"><span class="t" style="background:${P.background}">${c('yellow', '⁴proc')} ${c('muted', 'filter')}</span>
+    <div style="padding:8px 7px 0;line-height:13.5px;white-space:pre">${c('light_foreground', '  Pid Program          User   Cpu%   Mem', 'font-weight:700')}<br>${procs.map((p, i) => `<div style="${i === 2 ? `background:${P.selection};` : ''}">${c(i === 2 ? 'yellow' : 'foreground', p[0].padStart(5) + ' ' + p[1].padEnd(16) + ' ' + p[2].padEnd(6))}${c('green', p[3].padStart(5))}${c('light_foreground', p[4].padStart(7))}</div>`).join('')}</div>
+  </div>
+</div>`);
+
+// ---- shell: eza + git log
+const prompt = (path, cmd) => `${c('blue', path)} ${c('magenta', ' main')} ${c('green', '❯')} ${c('foreground', cmd)}`;
+win(rect(0, 1), `<div class="term">${prompt('~/omarchy-jungle-theme', 'eza -l --icons')}
+${c('blue', 'drwxr-xr-x')} ${c('yellow', 'chris')} ${c('muted', '15 Nov 21:22')} ${c('blue', ' art')}
+${c('blue', 'drwxr-xr-x')} ${c('yellow', 'chris')} ${c('muted', '15 Nov 21:22')} ${c('blue', ' backgrounds')}
+${c('foreground', '.rw-r--r--')} ${c('yellow', 'chris')} ${c('muted', '15 Nov 21:24')} ${c('orange', ' btop.theme')}
+${c('foreground', '.rw-r--r--')} ${c('yellow', 'chris')} ${c('muted', '15 Nov 21:24')} ${c('orange', ' colors.toml')}
+${c('foreground', '.rw-r--r--')} ${c('yellow', 'chris')} ${c('muted', '15 Nov 21:24')} ${c('foreground', ' icons.theme')}
+${c('foreground', '.rw-r--r--')} ${c('yellow', 'chris')} ${c('muted', '15 Nov 21:30')} ${c('magenta', ' preview.png')}
+${c('foreground', '.rw-r--r--')} ${c('yellow', 'chris')} ${c('muted', '15 Nov 21:30')} ${c('foreground', ' README.md')}
+${c('foreground', '.rw-r--r--')} ${c('yellow', 'chris')} ${c('muted', '15 Nov 21:27')} ${c('magenta', ' unlock.png')}
+
+${prompt('~/omarchy-jungle-theme', 'git log --oneline --graph -5')}
+${c('red', '*')} ${c('yellow', 'a3f9c21')} ${c('cyan', '(HEAD -> main)')} ${c('foreground', 'Paint the morpho shaft of light')}
+${c('red', '*')} ${c('yellow', '7d1e04b')} ${c('foreground', 'Toucan: keel-billed, mossy branch')}
+${c('red', '*')} ${c('yellow', '42c88aa')} ${c('foreground', 'Watcher: jaguar fur strokes')}
+${c('red', '*')} ${c('yellow', 'e0b5d17')} ${c('foreground', 'Canopy intro: dawn push-in')}
+${c('red', '*')} ${c('yellow', '19a6f3e')} ${c('foreground', 'Jungle palette from the rainforest')}
+
+${prompt('~/omarchy-jungle-theme', '')}<span style="background:${P.bright_foreground}"> </span></div>`);
+
+// ---- fetch: palette + system summary
+const art = ["███████████████████████████", "██           ██          ██", "██  ███████████    ████  ██", "██  ██               ██  ██", "██  ██               ██  ██", "██  ██               ██  ██", "██████               ██  ██", "██  ██               ██  ██", "██  ██               ██  ██", "██  ██               ██  ██", "██  ███████████████████  ██", "██           ██          ██", "███████████████  ██████████"];
+const info = [
+  `${c('accent', 'chris', 'font-weight:700')}${c('foreground', '@')}${c('accent', 'canopy', 'font-weight:700')}`,
+  c('muted', '────────────────'),
+  `${c('green', 'OS')}      ${c('foreground', 'Omarchy 4.5')}`,
+  `${c('green', 'WM')}      ${c('foreground', 'Hyprland')}`,
+  `${c('green', 'Theme')}   ${c('foreground', 'Jungle')}`,
+  `${c('green', 'Icons')}   ${c('foreground', 'Yaru-olive')}`,
+  `${c('green', 'Font')}    ${c('foreground', 'JetBrainsMono NF')}`,
+  `${c('green', 'Shell')}   ${c('foreground', 'bash 5.3')}`,
+  `${c('green', 'Uptime')}  ${c('foreground', '3 hours, 12 mins')}`,
+  '',
+  ['background', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'foreground'].map(k => `<span style="background:${P[k]}">   </span>`).join(''),
+  ['muted', 'bright_red', 'bright_green', 'bright_yellow', 'bright_blue', 'bright_magenta', 'bright_cyan', 'bright_foreground'].map(k => `<span style="background:${P[k]}">   </span>`).join(''),
+];
+const grad = (i) => J_mix(P.accent, P.yellow, i / (art.length - 1));
+function J_mix(a, b, t) {
+  const h = s => [1, 3, 5].map(k => parseInt(s.slice(k, k + 2), 16));
+  const A = h(a), B = h(b);
+  return '#' + A.map((v, i) => Math.round(v + (B[i] - v) * t).toString(16).padStart(2, '0')).join('');
+}
+win(rect(1, 1), `<div class="term">${prompt('~', 'fastfetch')}
+
+${art.map((l, i) => `<span style="display:inline-flex;vertical-align:top;height:13px">${[...l].map(ch => `<span style="display:inline-block;width:5.78px;height:13px;${ch === ' ' ? '' : `background:${grad(i)}`}"></span>`).join('')}</span>   ${info[i] || ''}`).join('\n')}
+
+${prompt('~', '')}<span style="background:${P.bright_foreground}"> </span></div>`);
+</script>
+</body>
+</html>

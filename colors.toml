@@ -1,0 +1,39 @@
+# Jungle — deep rainforest shade, sunlit canopy greens, and the colours of the
+# creatures hiding in it. Every wallpaper in backgrounds/ is painted from this
+# palette (see art/).
+mode = "dark"
+
+accent = "#85d867"            # canopy green: sunlight through a fresh leaf
+selection = "#223e2a"
+muted = "#617c68"             # moss (comments, bright black)
+
+# Window borders, menus, notifications and the lock screen share this gradient:
+# canopy green warming into jaguar gold, at the angle light falls through leaves.
+hyprland_active_border = "accent yellow 45deg"
+hyprland_inactive_border = "rgba(223e2aaa)"
+
+background = "#0e1d12"        # forest floor in deep shade
+dark_background = "#09140c"
+darker_background = "#050e07"
+lighter_background = "#17281b"
+
+foreground = "#dbe2c7"        # pale parchment leaf
+dark_foreground = "#768f7c"
+light_foreground = "#b8c5a9"
+bright_foreground = "#f3f5e5"
+
+red = "#f06c61"               # poison-dart frog
+yellow = "#efcc5d"            # jaguar gold
+orange = "#f89b4c"            # toucan bill
+green = "#85d867"             # parrot green
+cyan = "#5fd2ba"              # jungle river
+blue = "#5cb3e9"              # blue morpho
+magenta = "#df86c7"           # orchid
+brown = "#765135"             # mahogany bark
+
+bright_red = "#fe8c80"
+bright_yellow = "#fbe387"
+bright_green = "#a3ed8a"
+bright_cyan = "#88e6d1"
+bright_blue = "#81cbfa"
+bright_magenta = "#f2a4db"
