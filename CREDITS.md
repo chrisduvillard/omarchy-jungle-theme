@@ -36,9 +36,12 @@ one, credit its photographer, link the licence and say what you changed.
 `unlock.png` and `preview-unlock.png` are cut from the same Mossy Stone Wall material
 (Amal Kumar, [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)).
 
-The intro video (`backgrounds/intros/01-canopy.mp4`), `preview.png` and the
-thumbnails in `assets/` are made from these wallpapers and carry the same
-credits and licences as the photographs in them.
+`preview.png` is a screenshot of the theme running, with *Quetzal* as its wallpaper
+(photograph by Cephas, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)).
+
+The intro video (`backgrounds/intros/01-canopy.mp4`) and the thumbnails in
+`assets/` are made from these wallpapers and carry the same credits and
+licences as the photographs in them.
 
 The Omarchy wordmark in *Overgrown* and `unlock.png` belongs to
 [Omarchy](https://omarchy.org) and is used the way its built-in themes use it.

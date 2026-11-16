@@ -88,9 +88,9 @@ canopy green warming into jaguar gold at 45°
 | `icons.theme` | `Yaru-olive`, the icon set closest to the canopy green. |
 | `backgrounds/` | The wallpapers, plus `intros/01-canopy.mp4`. |
 | `unlock.png`, `preview-unlock.png` | The wordmark cut from mossy stone for the Plymouth boot screen and login, and its preview. |
-| `preview.png` | The theme picker preview. |
+| `preview.png` | The theme picker preview: a screenshot of the theme running. |
 | `CREDITS.md` | Who made each photograph, and under which licence. |
-| `art/` | The scripts that build every image above from its source. |
+| `art/` | The scripts that build the wallpapers, intro and boot logo from their sources. |
 
 The theme installs cleanly from git. Omarchy won't take Lua, terminal configs
 or `vscode.json` from a git-installed theme, so Jungle ships none of them and
@@ -121,7 +121,7 @@ node build.mjs --size 2560x1600      # another screen size (see art/README.md fo
 node build.mjs watcher toucan        # just some of them
 node overgrown.mjs                   # the carved wallpaper and unlock.png
 node intro.mjs                       # the Canopy intro (needs ffmpeg)
-npm install && node extras.mjs       # previews, README images, CREDITS.md
+node extras.mjs                      # boot preview, README images, CREDITS.md
 ```
 
 See [`art/README.md`](art/README.md) for what the scripts need and how they work.

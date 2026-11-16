@@ -1,6 +1,8 @@
 # art/: how the Jungle images are built
 
-Every image in the theme is rebuilt from its source by the scripts here.
+The wallpapers, the intro, the boot logo and the README images are rebuilt from
+their sources by the scripts here. The one exception is `../preview.png`, which
+is a screenshot of the theme running (see the end of this page).
 
 ```
 wallpapers.json   the manifest: each wallpaper's source photograph (Commons title,
@@ -9,20 +11,17 @@ wallpapers.json   the manifest: each wallpaper's source photograph (Commons titl
 build.mjs         photo wallpapers: download, convert to sRGB, crop, resize, grade, WebP
 overgrown.mjs     the carved-stone wallpaper and unlock.png
 intro.mjs         the Canopy intro video
-extras.mjs        preview.png, preview-unlock.png, README images, CREDITS.md
-preview.html      the desktop mock-up behind preview.png
+extras.mjs        preview-unlock.png, README images, CREDITS.md
 omarchy-logo.svg  the wordmark, used as a mask
 ```
 
 ## What you need
 
-- Node 18 or newer
+- Node 18 or newer (no npm packages)
 - ImageMagick 7 (`magick`) and libvips (`vips`)
 - ffmpeg with libx264 and libwebp, for the intro and its README loop
-- Chromium, only for `extras.mjs preview` (`npm install` pulls playwright-core,
-  which drives `/usr/bin/chromium`, or whatever `CHROMIUM` points at)
 
-On Omarchy: `sudo pacman -S --needed imagemagick libvips ffmpeg chromium`.
+On Omarchy: `sudo pacman -S --needed imagemagick libvips ffmpeg`.
 
 ## Photo wallpapers
 
@@ -82,6 +81,18 @@ stone raised instead of cut, on transparency. It is deterministic.
 `intro.mjs` turns `01-canopy.webp` into the intro with one ffmpeg filter chain;
 its last frame is the still. `extras.mjs` composes `preview-unlock.png` the
 same way `omarchy plymouth preview` does (it reads the Plymouth assets from
-`$OMARCHY_PATH`), renders `preview.png`, and regenerates `CREDITS.md` and the
-README gallery from the manifest. It reads the palette straight from
-`../colors.toml`.
+`$OMARCHY_PATH`), and regenerates `CREDITS.md` and the README gallery from the
+manifest. It reads the palette straight from `../colors.toml`.
+
+## The preview
+
+`../preview.png` is a screenshot, not a render: the theme installed on Omarchy
+4.5, with Neovim and a terminal open on the Quetzal wallpaper, captured with
+`grim` and scaled to Omarchy's preview size:
+
+```bash
+magick shot.png -strip -resize 2560x1440 ../preview.png
+```
+
+`"preview"` in the manifest names the wallpaper in the shot, so `CREDITS.md`
+credits the right photograph. Retake it after changing the palette.

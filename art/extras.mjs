@@ -1,14 +1,13 @@
 #!/usr/bin/env node
 // Everything derived from the wallpapers and the palette:
 //   preview-unlock.png   what the boot screen looks like with ../unlock.png
-//   preview.png          a desktop mock-up for the theme picker (preview.html)
 //   assets/…             README media: wallpaper thumbnails, intro loop, palette swatch
 //   CREDITS.md           who made each photograph, and under which licence
 //
-//   node extras.mjs [unlock] [preview] [assets] [credits]     (default: all)
+//   node extras.mjs [unlock] [assets] [credits]     (default: all)
 //
-// Needs ImageMagick 7; `preview` also needs Chromium (via playwright-core) and
-// `assets` needs ffmpeg for the intro loop.
+// Needs ImageMagick 7; `assets` also needs ffmpeg for the intro loop.
+// ../preview.png is not made here: it is a screenshot of the theme running.
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -56,25 +55,6 @@ if (all || want.includes('unlock')) {
   } else {
     console.log(`skipping preview-unlock.png: no Plymouth assets at ${ply}`);
   }
-}
-
-// ----------------------------------------------------------------- preview
-if (all || want.includes('preview')) {
-  const { chromium } = await import('playwright-core');
-  const browser = await chromium.launch({ executablePath: process.env.CHROMIUM || '/usr/bin/chromium' });
-  // 1280x720 logical at 2x, like Omarchy's own 2560x1440 previews
-  const page = await browser.newPage({ viewport: { width: 1280, height: 720 }, deviceScaleFactor: 2 });
-  const wall = fs.readFileSync(path.join(root, 'backgrounds', `${manifest.wallpapers[0].file}.webp`)).toString('base64');
-  const html = fs.readFileSync(path.join(here, 'preview.html'), 'utf8')
-    .replace('/*PALETTE*/', `window.P = ${JSON.stringify(P)};`)
-    .replace('WALLPAPER_DATA', `data:image/webp;base64,${wall}`);
-  await page.setContent(html, { waitUntil: 'load' });
-  await page.evaluate(() => document.fonts.ready);
-  await page.waitForTimeout(300);
-  const out = path.join(root, 'preview.png');
-  fs.writeFileSync(out, await page.screenshot({ type: 'png' }));
-  await browser.close();
-  console.log(kb(out));
 }
 
 // ------------------------------------------------------------------ assets
@@ -153,14 +133,19 @@ if (all || want.includes('credits')) {
       lines.push(`| ${name} | Made here from the [${stone.name}](${stone.page}) material on Poly Haven | ${stone.author} | ${licence(stone.license)} |`);
     }
   }
+  const shown = manifest.wallpapers.find(w => w.file === manifest.preview);
+  if (!shown?.source) throw new Error('wallpapers.json: "preview" must name a photo wallpaper');
   lines.push(
     '',
     `\`unlock.png\` and \`preview-unlock.png\` are cut from the same ${stone.name} material`,
     `(${stone.author}, ${licence(stone.license)}).`,
     '',
-    `The intro video (\`backgrounds/intros/${manifest.wallpapers[0].file}.mp4\`), \`preview.png\` and the`,
-    'thumbnails in `assets/` are made from these wallpapers and carry the same',
-    'credits and licences as the photographs in them.',
+    `\`preview.png\` is a screenshot of the theme running, with *${shown.title}* as its wallpaper`,
+    `(photograph by ${shown.source.author}, ${licence(shown.source.license)}).`,
+    '',
+    `The intro video (\`backgrounds/intros/${manifest.wallpapers[0].file}.mp4\`) and the thumbnails in`,
+    '`assets/` are made from these wallpapers and carry the same credits and',
+    'licences as the photographs in them.',
     '',
     'The Omarchy wordmark in *Overgrown* and `unlock.png` belongs to',
     '[Omarchy](https://omarchy.org) and is used the way its built-in themes use it.',
