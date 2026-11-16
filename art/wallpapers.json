@@ -1,0 +1,323 @@
+{
+  "size": [
+    3840,
+    2160
+  ],
+  "defaults": {
+    "crop": {
+      "cx": 0.5,
+      "cy": 0.5,
+      "zoom": 1
+    },
+    "grade": {
+      "black": 0,
+      "white": 100,
+      "gamma": 1,
+      "contrast": 0,
+      "saturation": 100,
+      "vignette": 0.35,
+      "tint": 1
+    }
+  },
+  "stone": {
+    "name": "Mossy Stone Wall",
+    "author": "Amal Kumar",
+    "page": "https://polyhaven.com/a/mossy_stone_wall",
+    "license": "CC0 1.0",
+    "maps": {
+      "diff": {
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/8k/mossy_stone_wall/mossy_stone_wall_diff_8k.jpg",
+        "md5": "7678112ec2624bf95e5458ac2628d2c5"
+      },
+      "disp": {
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/png/4k/mossy_stone_wall/mossy_stone_wall_disp_4k.png",
+        "md5": "98dd3e29538c45ae9526a32f661360ed"
+      },
+      "ao": {
+        "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/mossy_stone_wall/mossy_stone_wall_ao_4k.jpg",
+        "md5": "7c63676241a2bc7d495ab3fcaa7da589"
+      }
+    },
+    "wallpaper": {
+      "file": "18-overgrown",
+      "window": {
+        "x": 0.5,
+        "y": 0.42,
+        "span": 0.72
+      },
+      "logoWidth": 0.62,
+      "logoY": 0.5,
+      "grade": {
+        "vignette": 0.5
+      }
+    },
+    "unlock": {
+      "width": 820,
+      "pad": 10,
+      "scale": 0.6,
+      "window": {
+        "x": 0.3,
+        "y": 0.4,
+        "span": 0.5
+      }
+    }
+  },
+  "wallpapers": [
+    {
+      "file": "01-canopy",
+      "title": "Canopy",
+      "caption": "Morning sun breaking through the forest canopy.",
+      "animal": false,
+      "source": {
+        "title": "File:Sunbeams Filtering Through the Forest Canopy at National Botanical Garden, Bangladesh.jpg",
+        "sha1": "800cc7140787d48df46b15446608a5019e9cb0ca",
+        "author": "Mahbub Hasan Mreedul",
+        "license": "CC BY-SA 4.0"
+      }
+    },
+    {
+      "file": "02-watcher",
+      "title": "The Watcher",
+      "caption": "A jaguar watching from the undergrowth of the Pantanal.",
+      "animal": true,
+      "source": {
+        "title": "File:Onça do Pantanal.jpg",
+        "sha1": "a5da9a39f812cd522f24e3d124304b5b2957604b",
+        "author": "Leonardo Ramos",
+        "license": "CC BY-SA 4.0"
+      },
+      "crop": {
+        "cy": 0.47
+      }
+    },
+    {
+      "file": "03-monstera",
+      "title": "Monstera",
+      "caption": "A Monstera deliciosa leaf, all slits and holes.",
+      "animal": false,
+      "source": {
+        "title": "File:Lisbon botanical garden 13.JPG",
+        "sha1": "9ce379c58b987c2ad45d5cec19193ebdb37ddeeb",
+        "author": "Salix",
+        "license": "CC BY-SA 3.0"
+      }
+    },
+    {
+      "file": "04-toucan",
+      "title": "Toucan",
+      "caption": "A keel-billed toucan in Costa Rica.",
+      "animal": true,
+      "source": {
+        "title": "File:Keel billed toucan costa rica.jpg",
+        "sha1": "b66c1398d82398a0b6226cbc878f67af48375866",
+        "author": "Ttschleuder",
+        "license": "CC BY-SA 3.0"
+      }
+    },
+    {
+      "file": "05-cascade",
+      "title": "Cascade",
+      "caption": "Tumpak Sewu, the \"thousand waterfalls\" of East Java.",
+      "animal": false,
+      "source": {
+        "title": "File:Air rerjun Tumpak Sewu.jpg",
+        "sha1": "4bd43b2d87448f873dc775b7b8f1c4db89490939",
+        "author": "Irsam24",
+        "license": "CC BY-SA 4.0"
+      }
+    },
+    {
+      "file": "06-morpho",
+      "title": "Morpho",
+      "caption": "A blue morpho resting on dark leaves.",
+      "animal": true,
+      "source": {
+        "title": "File:2024-06-06 Morpho peleides.jpg",
+        "sha1": "a8306a5c9a24681c685e77452b9d3f955035471c",
+        "author": "The Modern Polymath",
+        "license": "CC BY-SA 4.0"
+      }
+    },
+    {
+      "file": "07-mist",
+      "title": "Mist",
+      "caption": "Fog drifting through the Periyar forest in the Western Ghats.",
+      "animal": false,
+      "source": {
+        "title": "File:Dense forest of the Periyar tiger reserve around the Sabarimala temple.jpg",
+        "sha1": "7f07955101e192c008c1d84b5aac9300e4005c91",
+        "author": "Shantham11",
+        "license": "CC BY-SA 4.0"
+      },
+      "grade": {
+        "gamma": 0.9
+      }
+    },
+    {
+      "file": "08-tree-frog",
+      "title": "Tree Frog",
+      "caption": "A red-eyed tree frog at night.",
+      "animal": true,
+      "source": {
+        "title": "File:Red-eyed Tree Frog (Agalychnis callidryas) 4.jpg",
+        "sha1": "812976ca533d88b07a3d5946cb34673a86cd4d3d",
+        "author": "Geoff Gallice",
+        "license": "CC BY 2.0"
+      }
+    },
+    {
+      "file": "09-lagoon",
+      "title": "Lagoon",
+      "caption": "A blue plunge pool in Tenorio Volcano National Park, Costa Rica.",
+      "animal": false,
+      "source": {
+        "title": "File:Tenorio Volcano Nationalpark, Costa Rica — bright blue paradise fantasy waterfall—2021.jpg",
+        "sha1": "ad3d46025ea9396cbfe2d10aea4ec164d0f02126",
+        "author": "Panegyrics of Granovetter",
+        "license": "CC BY-SA 2.0"
+      }
+    },
+    {
+      "file": "10-macaws",
+      "title": "Macaws",
+      "caption": "A pair of red-and-green macaws over Chapada dos Guimarães.",
+      "animal": true,
+      "source": {
+        "title": "File:189 Red-and-green macaw couple flying in Chapada dos Guimarães National Park Photo by Giles Laurent.jpg",
+        "sha1": "83c13e69312a2ad6de9022493844b6c7efb7c71c",
+        "author": "Giles Laurent",
+        "license": "CC BY-SA 4.0"
+      },
+      "grade": {
+        "gamma": 0.92,
+        "vignette": 0.45
+      }
+    },
+    {
+      "file": "11-ruin",
+      "title": "Ruin",
+      "caption": "Strangler-fig roots swallowing a doorway at Ta Prohm, Angkor.",
+      "animal": false,
+      "source": {
+        "title": "File:Ta Phrom, Angkor, Camboya, 2013-08-16, DD 09.JPG",
+        "sha1": "f846eae965cae05ae6718122368bfed0338b015a",
+        "author": "Diego Delso",
+        "license": "CC BY-SA 3.0"
+      }
+    },
+    {
+      "file": "12-quetzal",
+      "title": "Quetzal",
+      "caption": "A resplendent quetzal in the Monteverde cloud forest.",
+      "animal": true,
+      "source": {
+        "title": "File:Pharomachrus mocinno Monteverde 01.jpg",
+        "sha1": "678fb316c569dc17bf8266e5e5894f67a3930633",
+        "author": "Cephas",
+        "license": "CC BY-SA 4.0"
+      }
+    },
+    {
+      "file": "13-stream",
+      "title": "Stream",
+      "caption": "A creek spilling over mossy boulders between tree ferns.",
+      "animal": false,
+      "source": {
+        "title": "File:2017 01 28 Cement Creek at Mount Donna Buang-007 (32520748456).jpg",
+        "sha1": "4019091f2f39cfc05d403d6e405f7f70b6e0328e",
+        "author": "Rexness",
+        "license": "CC BY 2.0"
+      }
+    },
+    {
+      "file": "14-viper",
+      "title": "Viper",
+      "caption": "A golden eyelash viper coiled on a leaf.",
+      "animal": true,
+      "source": {
+        "title": "File:Żararaka Rogata (bok).jpg",
+        "sha1": "73becd625714d268cc2ab2c874d0ec35646655a4",
+        "author": "Antygon",
+        "license": "CC BY 4.0"
+      }
+    },
+    {
+      "file": "15-river",
+      "title": "River",
+      "caption": "Rainforest in the morning haze on Cheow Lan Lake, Khao Sok.",
+      "animal": false,
+      "source": {
+        "title": "File:Cheow Lan Lake, Rainforest, Khao Sok, Thailand.jpg",
+        "sha1": "7597a48a02767a88d78c48a06ca3429e79fef8d1",
+        "author": "Vyacheslav Argenberg",
+        "license": "CC BY 4.0"
+      }
+    },
+    {
+      "file": "16-sloth",
+      "title": "Sloth",
+      "caption": "A three-toed sloth hanging out near Manaus.",
+      "animal": true,
+      "source": {
+        "title": "File:Área de Proteção Ambiental Taruma-Ponta Negra - Thais Shepard.jpg",
+        "sha1": "a57f2a205582e978b25364a21532f535112a6213",
+        "author": "Issana.tas",
+        "license": "CC BY-SA 4.0"
+      },
+      "grade": {
+        "gamma": 0.9,
+        "vignette": 0.45
+      }
+    },
+    {
+      "file": "17-dart-frog",
+      "title": "Dart Frog",
+      "caption": "A poison frog carrying its tadpole across the moss.",
+      "animal": true,
+      "source": {
+        "title": "File:A male caring for the next generation.jpg",
+        "sha1": "2f41ba5222f93f8c4ba2d96160c487d3c99ecba4",
+        "author": "Santiago Styles (Protect the Andes)",
+        "license": "CC BY-SA 4.0"
+      },
+      "crop": {
+        "cy": 0.57
+      }
+    },
+    {
+      "file": "18-overgrown",
+      "title": "Overgrown",
+      "caption": "The Omarchy wordmark, carved into a mossy wall and half reclaimed.",
+      "animal": false,
+      "composite": "stone"
+    },
+    {
+      "file": "19-emerald",
+      "title": "Emerald",
+      "caption": "Sunbeams over an emerald pool at Erawan Falls, Thailand.",
+      "animal": false,
+      "source": {
+        "title": "File:Erawan Waterfall.jpg",
+        "sha1": "ab1c8bce86ed7a04b721d9331fb8149ae83cdd75",
+        "author": "Kanchanaphum Jantrathip",
+        "license": "CC BY-SA 4.0"
+      }
+    },
+    {
+      "file": "20-raindrops",
+      "title": "Raindrops",
+      "caption": "Rain beading on an Alocasia leaf.",
+      "animal": false,
+      "source": {
+        "title": "File:Alocasia clypeolata Green shield Hybride Botanischer Garten Linz -0135.jpg",
+        "sha1": "ec2a249deaad1746d53df85879fe4ca13c46963b",
+        "author": "Isiwal",
+        "license": "CC BY-SA 3.0 AT"
+      },
+      "grade": {
+        "gamma": 0.9,
+        "vignette": 0.45
+      }
+    }
+  ]
+}

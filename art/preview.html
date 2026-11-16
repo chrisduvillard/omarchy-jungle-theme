@@ -68,29 +68,28 @@ function win(r, html, active) {
   return el;
 }
 
-// ---- neovim: the art generator, of course
+// ---- neovim: the wallpaper build script
 const kw = t => c('magenta', t), fn = t => c('blue', t), st = t => c('green', t), nu = t => c('orange', t), cm = t => c('muted', t, 'font-style:italic'), ty = t => c('yellow', t), pu = t => c('light_foreground', t), va = t => c('foreground', t), pr = t => c('cyan', t);
 const code = [
-  cm('// 1 · Canopy — light pouring through layered rainforest.'),
-  `${pu('(')}${kw('function')} ${pu('() {')}`,
-  `  ${kw('const')} ${va('J')} ${pu('=')} ${va('window')}${pu('.')}${pr('J')}${pu(';')}`,
-  `  ${kw('const')} ${va('D')} ${pu('= [')}${st("'#5d8a6c'")}${pu(',')} ${st("'#47745a'")}${pu(',')} ${st("'#315a43'")}${pu('];')}`,
+  cm('// The largest frame-shaped rectangle around (cx, cy),'),
+  cm('// tightened by `zoom`.'),
+  `${kw('export function')} ${fn('cropRect')}${pu('(')}${va('sw')}${pu(',')} ${va('sh')}${pu(',')} ${va('aspect')}${pu(', {')} ${va('cx')}${pu(',')} ${va('cy')}${pu(',')} ${va('zoom')} ${pu('}) {')}`,
+  `  ${kw('let')} ${va('w')} ${pu('=')} ${va('sw')}${pu(',')} ${va('h')} ${pu('=')} ${va('sw')} ${pu('/')} ${va('aspect')}${pu(';')}`,
+  `  ${kw('if')} ${pu('(')}${va('h')} ${pu('>')} ${va('sh')}${pu(') {')}`,
+  `    ${va('h')} ${pu('=')} ${va('sh')}${pu(';')}`,
+  `    ${va('w')} ${pu('=')} ${va('sh')} ${pu('*')} ${va('aspect')}${pu(';')}`,
+  `  ${pu('}')}`,
+  `  ${va('w')} ${pu('=')} ${ty('Math')}${pu('.')}${fn('round')}${pu('(')}${va('w')} ${pu('/')} ${va('zoom')}${pu(');')}`,
+  `  ${va('h')} ${pu('=')} ${ty('Math')}${pu('.')}${fn('round')}${pu('(')}${va('h')} ${pu('/')} ${va('zoom')}${pu(');')}`,
+  `  ${kw('const')} ${va('x')} ${pu('=')} ${fn('clamp')}${pu('(')}${va('cx')} ${pu('*')} ${va('sw')} ${pu('-')} ${va('w')} ${pu('/')} ${nu('2')}${pu(',')} ${nu('0')}${pu(',')} ${va('sw')} ${pu('-')} ${va('w')}${pu(');')}`,
+  `  ${kw('const')} ${va('y')} ${pu('=')} ${fn('clamp')}${pu('(')}${va('cy')} ${pu('*')} ${va('sh')} ${pu('-')} ${va('h')} ${pu('/')} ${nu('2')}${pu(',')} ${nu('0')}${pu(',')} ${va('sh')} ${pu('-')} ${va('h')}${pu(');')}`,
+  `  ${kw('return')} ${pu('{')} ${va('w')}${pu(',')} ${va('h')}${pu(',')} ${va('x')}${pu(',')} ${va('y')} ${pu('};')}`,
+  `${pu('}')}`,
   ``,
-  `  ${va('J')}${pu('.')}${fn('canopyLayers')} ${pu('=')} ${kw('function')} ${pu('(')}${va('W')}${pu(',')} ${va('H')}${pu(',')} ${va('seed')}${pu(') {')}`,
-  `    ${kw('const')} ${va('r')} ${pu('=')} ${va('J')}${pu('.')}${fn('rng')}${pu('(')}${va('seed')}${pu(');')}`,
-  `    ${kw('const')} ${va('sun')} ${pu('= {')} ${pr('x')}${pu(':')} ${va('W')} ${pu('*')} ${nu('0.7')}${pu(',')} ${pr('y')}${pu(':')} ${pu('-')}${va('H')} ${pu('*')} ${nu('0.1')} ${pu('};')}`,
-  `    ${kw('for')} ${pu('(')}${kw('let')} ${va('i')} ${pu('=')} ${nu('0')}${pu(';')} ${va('i')} ${pu('<')} ${nu('48')}${pu(';')} ${va('i')}${pu('++) {')}`,
-  `      ${va('J')}${pu('.')}${fn('trunk')}${pu('(')}${va('x')}${pu(',')} ${va('r')}${pu('.')}${fn('range')}${pu('(')}${pu('-')}${nu('0.05')}${pu(',')} ${nu('1.05')}${pu(') *')} ${va('W')}${pu(',')} ${va('H')}${pu(', {')}`,
-  `        ${pr('color')}${pu(':')} ${va('D')}${pu('[')}${nu('1')}${pu('],')} ${pr('taper')}${pu(':')} ${nu('0.75')}${pu(',')} ${pr('seed')}${pu(':')} ${nu('100')} ${pu('+')} ${va('i')}${pu(',')}`,
-  `      ${pu('});')}`,
-  `    ${pu('}')}`,
-  `    ${cm('// god rays, then mist, then the backlit leaves')}`,
-  `    ${va('layers')}${pu('.')}${fn('push')}${pu('({')} ${pr('canvas')}${pu(':')} ${va('J')}${pu('.')}${fn('godRays')}${pu('(')}${va('W')}${pu(',')} ${va('H')}${pu(', {')}`,
-  `      ${pr('angle')}${pu(':')} ${ty('Math')}${pu('.')}${pr('PI')} ${pu('*')} ${nu('0.6')}${pu(',')} ${pr('color')}${pu(':')} ${st("'#f6eeb4'")}${pu(',')} ${pr('count')}${pu(':')} ${nu('14')}${pu(',')}`,
-  `    ${pu('}),')} ${pr('blend')}${pu(':')} ${st("'screen'")} ${pu('});')}`,
-  `    ${kw('return')} ${pu('{')} ${va('layers')}${pu(',')} ${va('sun')} ${pu('};')}`,
-  `  ${pu('};')}`,
-  `${pu('})();')}`,
+  cm('// black lands on darker_background; white warms a touch'),
+  `${kw('const')} ${pu('[')}${va('r')}${pu(',')} ${va('g')}${pu(',')} ${va('b')}${pu('] =')} ${fn('hexPct')}${pu('(')}${va('P')}${pu('.')}${pr('darker_background')}${pu(');')}`,
+  `${va('a')}${pu('.')}${fn('push')}${pu('(')}${st("'-channel'")}${pu(',')} ${st("'B'")}${pu(',')} ${st("'+level'")}${pu(',')} ${st('`${b}%,95.5%`')}${pu(');')}`,
+  `${kw('return')} ${va('a')}${pu(';')}`,
 ];
 const cur = 8;
 const codeHtml = code.map((l, i) => {
@@ -100,27 +99,27 @@ const codeHtml = code.map((l, i) => {
   return `<div style="${bg}"><span class="ln">${num}</span>${l || ' '}</div>`;
 }).join('');
 const tree = [
-  c('blue', '  omarchy-jungle-theme'),
-  `${c('muted', '│ ')}${c('blue', ' art')}`,
-  `${c('muted', '│ │ ')}${c('blue', ' lib')}`,
-  `${c('muted', '│ │ ')}${c('blue', ' scenes')}`,
-  `${c('muted', '│ │ │ ')}${c('yellow', ' canopy.js')}`,
-  `${c('muted', '│ │ │ ')}${c('yellow', ' cascade.js')}`,
-  `${c('muted', '│ │ │ ')}${c('yellow', ' morpho.js')}`,
-  `${c('muted', '│ │ │ ')}${c('yellow', ' toucan.js')}`,
-  `${c('muted', '│ │ │ ')}${c('yellow', ' watcher.js')}`,
-  `${c('muted', '│ │ ')}${c('green', ' render.mjs')}`,
-  `${c('muted', '│ ')}${c('blue', ' backgrounds')}`,
-  `${c('muted', '│ ')}${c('orange', ' colors.toml')}`,
-  `${c('muted', '│ ')}${c('foreground', ' README.md')}`,
-].map((l, i) => `<div style="${i === 4 ? `background:${P.selection};` : ''}">${l}</div>`).join('');
+  c('blue', '  omarchy-jungle-theme'),
+  `${c('muted', '│ ')}${c('blue', ' art')}`,
+  `${c('muted', '│ │ ')}${c('green', ' build.mjs')}`,
+  `${c('muted', '│ │ ')}${c('green', ' extras.mjs')}`,
+  `${c('muted', '│ │ ')}${c('green', ' intro.mjs')}`,
+  `${c('muted', '│ │ ')}${c('green', ' overgrown.mjs')}`,
+  `${c('muted', '│ │ ')}${c('yellow', ' wallpapers.json')}`,
+  `${c('muted', '│ ')}${c('blue', ' backgrounds')}`,
+  `${c('muted', '│ │ ')}${c('magenta', ' 01-canopy.webp')}`,
+  `${c('muted', '│ │ ')}${c('magenta', ' 02-watcher.webp')}`,
+  `${c('muted', '│ ')}${c('orange', ' colors.toml')}`,
+  `${c('muted', '│ ')}${c('foreground', ' CREDITS.md')}`,
+  `${c('muted', '│ ')}${c('foreground', ' README.md')}`,
+].map((l, i) => `<div style="${i === 2 ? `background:${P.selection};` : ''}">${l}</div>`).join('');
 win(rect(0, 0), `<div class="nv">
   <div class="main">
     <div class="tree" style="background:${P.dark_background}">${tree}</div>
     <div class="code">${codeHtml}<span style="position:absolute;left:${42 + 4 * 5.77}px;top:${6 + (cur - 1) * 13}px;width:5.8px;height:13px;background:${P.bright_foreground};opacity:.85"></span></div>
   </div>
-  <div class="status" style="background:${P.dark_background}">${c(P.background, ' NORMAL ', `background:${P.accent};font-weight:700`)}${c('accent', '  main ')}${c('light_foreground', '  art/scenes/canopy.js ')}<span style="flex:1"></span>${c('muted', 'javascript  ')}${c(P.background, ' 8:5 ', `background:${P.yellow}`)}</div>
-  <div class="cmd" style="color:${P.muted}">"canopy.js" 212L, 9861B</div>
+  <div class="status" style="background:${P.dark_background}">${c(P.background, ' NORMAL ', `background:${P.accent};font-weight:700`)}${c('accent', '  main ')}${c('light_foreground', '  art/build.mjs ')}<span style="flex:1"></span>${c('muted', 'javascript  ')}${c(P.background, ' 8:5 ', `background:${P.yellow}`)}</div>
+  <div class="cmd" style="color:${P.muted}">"build.mjs" 196L, 9412B</div>
 </div>`, true);
 
 // ---- btop
@@ -137,7 +136,7 @@ function spark(n, seed, from, to, maxH = 1) {
 const meter = (label, pct, from, to) => `<div style="display:flex;align-items:center;gap:6px;margin:2px 0">${c('light_foreground', label.padEnd(9))}<div style="flex:1;height:7px;background:${P.lighter_background};border-radius:2px;overflow:hidden"><div style="width:${pct}%;height:100%;background:linear-gradient(90deg, ${P[from]}, ${P[to]})"></div></div>${c('foreground', (pct + '%').padStart(4))}</div>`;
 const procs = [
   ['1803', 'Hyprland', 'chris', '4.1', '412M'], ['2211', 'omarchy-shell', 'chris', '2.3', '388M'], ['2876', 'nvim', 'chris', '1.2', '96M'],
-  ['3012', 'chromium', 'chris', '0.9', '1.1G'], ['3390', 'node render.mjs', 'chris', '0.8', '742M'], ['2290', 'ghostty', 'chris', '0.5', '128M'],
+  ['3012', 'chromium', 'chris', '0.9', '1.1G'], ['3390', 'node build.mjs', 'chris', '0.8', '742M'], ['2290', 'ghostty', 'chris', '0.5', '128M'],
   ['1022', 'pipewire', 'chris', '0.3', '24M'], ['3412', 'btop', 'chris', '0.2', '12M'],
 ];
 win(rect(1, 0), `<div style="position:relative;height:100%;padding:12px 8px 8px">
@@ -157,20 +156,20 @@ win(rect(1, 0), `<div style="position:relative;height:100%;padding:12px 8px 8px"
 // ---- shell: eza + git log
 const prompt = (path, cmd) => `${c('blue', path)} ${c('magenta', ' main')} ${c('green', '❯')} ${c('foreground', cmd)}`;
 win(rect(0, 1), `<div class="term">${prompt('~/omarchy-jungle-theme', 'eza -l --icons')}
-${c('blue', 'drwxr-xr-x')} ${c('yellow', 'chris')} ${c('muted', '15 Nov 21:22')} ${c('blue', ' art')}
-${c('blue', 'drwxr-xr-x')} ${c('yellow', 'chris')} ${c('muted', '15 Nov 21:22')} ${c('blue', ' backgrounds')}
+${c('blue', 'drwxr-xr-x')} ${c('yellow', 'chris')} ${c('muted', '16 Nov 10:02')} ${c('blue', ' art')}
+${c('blue', 'drwxr-xr-x')} ${c('yellow', 'chris')} ${c('muted', '16 Nov 10:04')} ${c('blue', ' backgrounds')}
 ${c('foreground', '.rw-r--r--')} ${c('yellow', 'chris')} ${c('muted', '15 Nov 21:24')} ${c('orange', ' btop.theme')}
 ${c('foreground', '.rw-r--r--')} ${c('yellow', 'chris')} ${c('muted', '15 Nov 21:24')} ${c('orange', ' colors.toml')}
-${c('foreground', '.rw-r--r--')} ${c('yellow', 'chris')} ${c('muted', '15 Nov 21:24')} ${c('foreground', ' icons.theme')}
-${c('foreground', '.rw-r--r--')} ${c('yellow', 'chris')} ${c('muted', '15 Nov 21:30')} ${c('magenta', ' preview.png')}
-${c('foreground', '.rw-r--r--')} ${c('yellow', 'chris')} ${c('muted', '15 Nov 21:30')} ${c('foreground', ' README.md')}
-${c('foreground', '.rw-r--r--')} ${c('yellow', 'chris')} ${c('muted', '15 Nov 21:27')} ${c('magenta', ' unlock.png')}
+${c('foreground', '.rw-r--r--')} ${c('yellow', 'chris')} ${c('muted', '16 Nov 10:06')} ${c('foreground', ' CREDITS.md')}
+${c('foreground', '.rw-r--r--')} ${c('yellow', 'chris')} ${c('muted', '16 Nov 10:06')} ${c('magenta', ' preview.png')}
+${c('foreground', '.rw-r--r--')} ${c('yellow', 'chris')} ${c('muted', '16 Nov 10:06')} ${c('foreground', ' README.md')}
+${c('foreground', '.rw-r--r--')} ${c('yellow', 'chris')} ${c('muted', '16 Nov 10:05')} ${c('magenta', ' unlock.png')}
 
 ${prompt('~/omarchy-jungle-theme', 'git log --oneline --graph -5')}
-${c('red', '*')} ${c('yellow', 'a3f9c21')} ${c('cyan', '(HEAD -> main)')} ${c('foreground', 'Paint the morpho shaft of light')}
-${c('red', '*')} ${c('yellow', '7d1e04b')} ${c('foreground', 'Toucan: keel-billed, mossy branch')}
-${c('red', '*')} ${c('yellow', '42c88aa')} ${c('foreground', 'Watcher: jaguar fur strokes')}
-${c('red', '*')} ${c('yellow', 'e0b5d17')} ${c('foreground', 'Canopy intro: dawn push-in')}
+${c('red', '*')} ${c('yellow', 'a3f9c21')} ${c('cyan', '(HEAD -> main)')} ${c('foreground', 'Wallpapers from real rainforest photos')}
+${c('red', '*')} ${c('yellow', '7d1e04b')} ${c('foreground', 'Overgrown: carve the wordmark in stone')}
+${c('red', '*')} ${c('yellow', '42c88aa')} ${c('foreground', 'Credits and licences for every photo')}
+${c('red', '*')} ${c('yellow', 'e0b5d17')} ${c('foreground', 'Canopy intro: the forest wakes up')}
 ${c('red', '*')} ${c('yellow', '19a6f3e')} ${c('foreground', 'Jungle palette from the rainforest')}
 
 ${prompt('~/omarchy-jungle-theme', '')}<span style="background:${P.bright_foreground}"> </span></div>`);

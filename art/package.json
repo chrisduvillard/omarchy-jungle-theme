@@ -1,13 +1,18 @@
 {
   "name": "omarchy-jungle-theme-art",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
-  "description": "Procedural painter for the Jungle Omarchy theme wallpapers, intro and unlock art",
+  "description": "Builds the Jungle Omarchy theme's wallpapers, intro and boot logo from their sources",
   "scripts": {
-    "render": "node render.mjs",
+    "build": "node build.mjs && node overgrown.mjs && node intro.mjs && node extras.mjs",
+    "wallpapers": "node build.mjs",
+    "overgrown": "node overgrown.mjs",
     "intro": "node intro.mjs",
     "extras": "node extras.mjs"
+  },
+  "engines": {
+    "node": ">=18"
   },
   "dependencies": {
     "playwright-core": "1.49.1"
